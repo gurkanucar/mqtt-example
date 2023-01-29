@@ -14,6 +14,7 @@ mosquitto_sub -t myTopic -u admin -P 12345678
 
 mosquitto_pub -t myTopic -m "hello world!" -u admin -P 12345678
 
+mosquitto_pub -t myTopic -m "{\"deviceId\":\"device1\",\"lat\":\"41.63322\",\"lon\":\"26.62385\",\"message\":\"hifromapp!\",\"topic\":\"myTopic\"}" -u admin -P 12345678
 
 mosquitto_pub -t myTopic -m "{\"message\":\"Hello,MQTTfromclient!\",\"topic\":\"myTopic\"}" -u admin -P 12345678
 
