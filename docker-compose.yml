@@ -7,6 +7,8 @@ services:
       - "6379:6379"
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      - shared-net
   app:
     build:
       context: ./backend/
@@ -17,3 +19,9 @@ services:
       SPRING_REDIS_HOST: redisdb
     depends_on:
       - redisdb
+    networks:
+      - shared-net
+
+networks:
+  shared-net:
+    driver: bridge
