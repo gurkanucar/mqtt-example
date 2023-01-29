@@ -8,7 +8,7 @@ import { ButtonComponent } from "./components/ButtonComponent";
 
 function App() {
   const [initialData, setInitialData] = useState();
-  const [deviceIds, setDeviceIds] = useState(["device1", "device2"]);
+  const [deviceIds, setDeviceIds] = useState([]);
   const [selectedDevice, setSelectedDevice] = useState();
   const [deviceSelected, setdeviceSelected] = useState(false);
 
@@ -41,6 +41,8 @@ function App() {
   useEffect(() => {
     if (deviceSelected == true) {
       fetchInitialData();
+    } else {
+      setSelectedDevice("");
     }
   }, [deviceSelected]);
 
@@ -64,7 +66,7 @@ function App() {
         }}
         value={deviceSelected ? "Select another" : "View Location"}
       />
-      {deviceSelected && initialData && (
+      {deviceSelected == true && initialData != undefined && (
         <Home selectedDevice={selectedDevice} initialData={initialData} />
       )}
     </div>
