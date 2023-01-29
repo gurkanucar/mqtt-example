@@ -30,12 +30,18 @@ class MainActivity : AppCompatActivity() {
 
         binding.buttonSetDeviceId.setOnClickListener {
             deviceId = binding.deviceNameText.text.toString()
+            Log.i("Info", "setDeviceId clicked, deviceId: $deviceId")
         }
 
         binding.buttonConnect.setOnClickListener {
+
             mqttHandler = MqttHandler(this, deviceId)
             mqttHandler.connect { isConnected ->
                 this.isConnected = isConnected
+                Log.i(
+                    "Info",
+                    "buttonConnect clicked, isConnected: $isConnected , deviceId: $deviceId"
+                )
             }
             isConnected = mqttHandler.isConnected
         }
@@ -61,7 +67,7 @@ class MainActivity : AppCompatActivity() {
         if (isConnected) {
             mqttHandler.sendMessage(
                 deviceId,
-                "myTopic",
+                deviceId,
                 "hi from app!",
                 location.latitude.toString(),
                 location.longitude.toString()

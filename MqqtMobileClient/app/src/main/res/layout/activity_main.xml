@@ -16,29 +16,32 @@
         app:layout_constraintStart_toEndOf="@+id/buttonSetDeviceId"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--    <TextView-->
+<!--        android:id="@+id/incomingData"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginBottom="276dp"-->
+<!--        android:text="incomingData"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.098"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/buttonConnect"-->
+<!--        app:layout_constraintVertical_bias="0.2" />-->
+
     <TextView
         android:id="@+id/locationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="location update"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.101"
+        app:layout_constraintHorizontal_bias="0.117"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/incomingData"
-        app:layout_constraintVertical_bias="0.163" />
-
-    <TextView
-        android:id="@+id/incomingData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="incomingData"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.098"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.148" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonConnect"
+        app:layout_constraintVertical_bias="0.085" />
 
     <Button
         android:id="@+id/buttonConnect"
