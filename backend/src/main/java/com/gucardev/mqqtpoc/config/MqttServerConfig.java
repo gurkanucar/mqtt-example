@@ -1,9 +1,7 @@
 package com.gucardev.mqqtpoc.config;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.gucardev.mqqtpoc.model.MessageData;
+import com.gucardev.mqqtpoc.model.StateData;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.context.annotation.Bean;
@@ -72,7 +70,7 @@ public class MqttServerConfig {
         try {
           String topic = message.getHeaders().get(MqttHeaders.RECEIVED_TOPIC).toString();
           Gson gson = new Gson();
-          MessageData myMessage = gson.fromJson(message.getPayload().toString(), MessageData.class);
+          StateData myMessage = gson.fromJson(message.getPayload().toString(), StateData.class);
           log.info(myMessage.toString());
         } catch (Exception e) {
           log.error("something went wrong!");

@@ -2,14 +2,13 @@ package com.gucardev.mqqtpoc.service;
 
 import com.gucardev.mqqtpoc.model.ResponseData;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
 @Service
-public class MessageService {
+public class StateService {
 
 
   public Flux<ServerSentEvent<List<ResponseData>>> getById(String id) {
@@ -18,7 +17,7 @@ public class MessageService {
 
     return Flux.interval(Duration.ofSeconds(1))
         .map(sequence -> ServerSentEvent.<List<ResponseData>>builder()
-            .id(String.valueOf(sequence)).event("user-list-event").data(data).build());
+            .id(String.valueOf(sequence)).event("states-list-event").data(data).build());
   }
 
 }

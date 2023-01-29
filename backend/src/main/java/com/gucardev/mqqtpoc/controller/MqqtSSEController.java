@@ -1,7 +1,7 @@
 package com.gucardev.mqqtpoc.controller;
 
 import com.gucardev.mqqtpoc.model.ResponseData;
-import com.gucardev.mqqtpoc.service.MessageService;
+import com.gucardev.mqqtpoc.service.StateService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.codec.ServerSentEvent;
@@ -17,12 +17,12 @@ import reactor.core.publisher.Flux;
 @RequiredArgsConstructor
 public class MqqtSSEController {
 
-  private final MessageService messageService;
+  private final StateService stateService;
 
   @GetMapping("/{clientId}")
   public Flux<ServerSentEvent<List<ResponseData>>> streamLastMessage(
       @PathVariable String clientId) {
-    return messageService.getById(clientId);
+    return stateService.getById(clientId);
   }
 
 }

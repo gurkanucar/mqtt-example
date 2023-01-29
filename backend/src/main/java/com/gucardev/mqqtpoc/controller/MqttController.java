@@ -1,7 +1,7 @@
 package com.gucardev.mqqtpoc.controller;
 
 import com.gucardev.mqqtpoc.service.MqttGateway;
-import com.gucardev.mqqtpoc.model.MessageData;
+import com.gucardev.mqqtpoc.model.StateData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +15,7 @@ public class MqttController {
   MqttGateway mqtGateway;
 
   @PostMapping("/sendMessage")
-  public ResponseEntity<?> publish(@RequestBody MessageData mqttMessage) {
+  public ResponseEntity<?> publish(@RequestBody StateData mqttMessage) {
     try {
       mqtGateway.senToMqtt(mqttMessage.getMessage(), mqttMessage.getTopic());
       return ResponseEntity.ok("Success");
