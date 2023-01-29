@@ -1,0 +1,15 @@
+#broker.conf
+listener 1883
+password_file passFile
+allow_anonymous false
+
+#passFile
+admin:password
+
+mosquitto -v -c broker.conf
+
+mosquitto_passwd -U passFile
+
+mosquitto_sub -t myTopic -u admin -P 12345678
+
+mosquitto_pub -t myTopic -m "hello world!" -u admin -P 12345678
