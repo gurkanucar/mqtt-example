@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MapComponent } from "../components/MapComponent";
+import { exampleData } from "../res/exampleData";
 
 export const Home = () => {
   const [status, setStatus] = useState("idle");
@@ -34,7 +35,7 @@ export const Home = () => {
     <div>
       <h1>Home</h1>
       {/* [[51.505, -0.09]] */}
-      <MapComponent markers={incomingData} />
+      <MapComponent markers={exampleData} />
       <h3>{JSON.stringify(incomingData)}</h3>
     </div>
   );
