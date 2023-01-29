@@ -1,5 +1,10 @@
-package com.gucardev.mqqtpoc;
+package com.gucardev.mqqtpoc.config;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.gucardev.mqqtpoc.model.MessageData;
+import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +23,7 @@ import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.MessagingException;
 
 @Configuration
+@Slf4j
 public class MqttServerConfig {
 
 
@@ -26,7 +32,7 @@ public class MqttServerConfig {
     DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
     MqttConnectOptions options = new MqttConnectOptions();
 
-    options.setServerURIs(new String[] { "tcp://localhost:1883" });
+    options.setServerURIs(new String[]{"tcp://localhost:1883"});
     options.setUserName("admin");
     String pass = "12345678";
     options.setPassword(pass.toCharArray());
@@ -36,6 +42,7 @@ public class MqttServerConfig {
 
     return factory;
   }
+
   @Bean
   public MessageChannel mqttInputChannel() {
     return new DirectChannel();
@@ -43,7 +50,8 @@ public class MqttServerConfig {
 
   @Bean
   public MessageProducer inbound() {
-    MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter("serverIn",
+    MqttPahoMessageDrivenChannelAdapter adapter = new MqttPahoMessageDrivenChannelAdapter(
+        "serverIn",
         mqttClientFactory(), "#");
 
     adapter.setCompletionTimeout(5000);
@@ -61,11 +69,14 @@ public class MqttServerConfig {
 
       @Override
       public void handleMessage(Message<?> message) throws MessagingException {
-        String topic = message.getHeaders().get(MqttHeaders.RECEIVED_TOPIC).toString();
-        if(topic.equals("myTopic")) {
-          System.out.println("This is the topic");
+        try {
+          String topic = message.getHeaders().get(MqttHeaders.RECEIVED_TOPIC).toString();
+          Gson gson = new Gson();
+          MessageData myMessage = gson.fromJson(message.getPayload().toString(), MessageData.class);
+          log.info(myMessage.toString());
+        } catch (Exception e) {
+          log.error("something went wrong!");
         }
-        System.out.println(message.getPayload());
       }
 
     };
@@ -76,11 +87,13 @@ public class MqttServerConfig {
   public MessageChannel mqttOutboundChannel() {
     return new DirectChannel();
   }
+
   @Bean
   @ServiceActivator(inputChannel = "mqttOutboundChannel")
   public MessageHandler mqttOutbound() {
     //clientId is generated using a random number
-    MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler("serverOut", mqttClientFactory());
+    MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler("serverOut",
+        mqttClientFactory());
     messageHandler.setAsync(true);
     messageHandler.setDefaultTopic("#");
     messageHandler.setDefaultRetained(false);

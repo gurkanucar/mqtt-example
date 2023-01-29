@@ -1,7 +1,7 @@
-package com.gucardev.mqqtpoc;
+package com.gucardev.mqqtpoc.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.gucardev.mqqtpoc.service.MqttGateway;
+import com.gucardev.mqqtpoc.model.MessageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +15,9 @@ public class MqttController {
   MqttGateway mqtGateway;
 
   @PostMapping("/sendMessage")
-  public ResponseEntity<?> publish(@RequestBody String mqttMessage) {
+  public ResponseEntity<?> publish(@RequestBody MessageData mqttMessage) {
     try {
-      mqtGateway.senToMqtt("message!", "myTopic");
+      mqtGateway.senToMqtt(mqttMessage.getMessage(), mqttMessage.getTopic());
       return ResponseEntity.ok("Success");
     } catch (Exception ex) {
       ex.printStackTrace();

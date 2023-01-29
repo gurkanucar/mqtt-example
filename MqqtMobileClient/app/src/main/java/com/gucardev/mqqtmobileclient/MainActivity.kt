@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun sendMessage() {
         val topic = "myTopic"
-        val message = "Hello, MQTT from client!"
+        val message = "{\"message\":\"Hello,MQTTfromclient!\",\"topic\":\"myTopic\"}"
         val qos = 1
         val retained = false
         mqttClient.publish(topic, message.toByteArray(), qos, retained)

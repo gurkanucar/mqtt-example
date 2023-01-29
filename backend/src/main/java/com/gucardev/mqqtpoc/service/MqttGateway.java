@@ -1,4 +1,4 @@
-package com.gucardev.mqqtpoc;
+package com.gucardev.mqqtpoc.service;
 
 
 import org.springframework.integration.annotation.MessagingGateway;
