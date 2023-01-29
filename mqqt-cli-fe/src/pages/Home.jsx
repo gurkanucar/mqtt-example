@@ -2,25 +2,25 @@ import React, { useEffect, useState } from "react";
 import { MapComponent } from "../components/MapComponent";
 import { exampleData } from "../res/exampleData";
 
-export const Home = () => {
+export const Home = (props) => {
+  const { initialData } = props;
+
   const [status, setStatus] = useState("idle");
-  const [incomingData, setIncomingData] = useState([]);
+  const [incomingData, setIncomingData] = useState(initialData);
 
-  const url = "http://192.168.0.27:8080";
-
-  const updateIncomingData = (data) => {
-    console.log("message income");
-    const parsedData = JSON.parse(data);
-    setIncomingData(parsedData);
-  };
+  const url = "http://192.168.0.27:8081";
 
   useEffect(() => {
-    const sse = new EventSource(`${url}/data/device1`);
+    console.log(incomingData.length);
+  }, [incomingData]);
 
+  useEffect(() => {
+    const sse = new EventSource(`${url}/data/cached/device1`);
     sse.addEventListener("states-list-event", (event) => {
       const data = JSON.parse(event.data);
-      console.log(data);
-      setIncomingData(data);
+      if (data.length > 0) {
+        setIncomingData((prevData) => [...prevData, ...data]);
+      }
     });
 
     sse.onerror = () => {
@@ -29,14 +29,12 @@ export const Home = () => {
     return () => {
       sse.close();
     };
-  }, []);
+  }, [url]);
 
   return (
     <div>
-      <h1>Home</h1>
-      {/* [[51.505, -0.09]] */}
-      <MapComponent markers={exampleData} />
-      <h3>{JSON.stringify(incomingData)}</h3>
+      <h1>Track Location</h1>
+      <MapComponent markers={incomingData} />
     </div>
   );
 };

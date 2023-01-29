@@ -43,22 +43,23 @@ export const MapComponent = (props) => {
     );
   };
 
-  const putLastLocation = (location) => {
-    return (
-      <>
-        <Marker
-          icon={myIcon}
-          key={`marker-${Math.random()}`}
-          position={[parseFloat(location.lat), parseFloat(location.lon)]}
-        >
-          <Popup>
-            <span>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </span>
-          </Popup>
-        </Marker>
-      </>
-    );
+  const putLastLocation = (markers) => {
+    if (markers != undefined && markers.length != 0) {
+      const location = markers[markers.length - 1];
+      return (
+        <>
+          <Marker
+            icon={myIcon}
+            key={`marker-${Math.random()}`}
+            position={[parseFloat(location.lat), parseFloat(location.lon)]}
+          >
+            <Popup>
+              <span>popup</span>
+            </Popup>
+          </Marker>
+        </>
+      );
+    }
   };
 
   return (
@@ -74,31 +75,8 @@ export const MapComponent = (props) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
         {renderPositions(markers)}
-        {putLastLocation(markers[markers.length - 1])}
-        {/* {markers.map((item, idx) => {
-          return (
-            <Marker
-              icon={myIcon}
-              key={`marker-${idx}`}
-              position={[parseFloat(item.lat), parseFloat(item.lon)]}
-            >
-            
-              {/* <Popup>
-              <span>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </span>
-            </Popup> 
-            </Marker>
-          );
-        })} */}
+        {putLastLocation(markers)}
       </MapContainer>
     </div>
   );
 };
-
-{
-  /* <TileLayer
-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-/> */
-}
