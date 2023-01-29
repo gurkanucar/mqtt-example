@@ -16,8 +16,8 @@ class LocationUpdater(context: Context, private val locationChangeHandler: (Loca
     fun start() {
         mGpsLocationClient.requestLocationUpdates(
             LocationManager.GPS_PROVIDER,
-            5000L,
-            100f,
+            2000L,
+            1f,
             locationListener
 
         )

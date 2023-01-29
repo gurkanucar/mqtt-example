@@ -1,6 +1,7 @@
 package com.gucardev.mqqtpoc.controller;
 
 import com.gucardev.mqqtpoc.model.ResponseData;
+import com.gucardev.mqqtpoc.model.StateData;
 import com.gucardev.mqqtpoc.service.StateService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class MqqtSSEController {
   private final StateService stateService;
 
   @GetMapping("/{clientId}")
-  public Flux<ServerSentEvent<List<ResponseData>>> streamLastMessage(
+  public Flux<ServerSentEvent<List<StateData>>> streamLastMessage(
       @PathVariable String clientId) {
     return stateService.getById(clientId);
   }

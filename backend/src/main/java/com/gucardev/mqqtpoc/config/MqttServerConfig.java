@@ -2,6 +2,8 @@ package com.gucardev.mqqtpoc.config;
 
 import com.google.gson.Gson;
 import com.gucardev.mqqtpoc.model.StateData;
+import com.gucardev.mqqtpoc.service.StateService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.springframework.context.annotation.Bean;
@@ -22,8 +24,10 @@ import org.springframework.messaging.MessagingException;
 
 @Configuration
 @Slf4j
+@RequiredArgsConstructor
 public class MqttServerConfig {
 
+  private final StateService service;
 
   @Bean
   public MqttPahoClientFactory mqttClientFactory() {
@@ -71,6 +75,7 @@ public class MqttServerConfig {
           String topic = message.getHeaders().get(MqttHeaders.RECEIVED_TOPIC).toString();
           Gson gson = new Gson();
           StateData myMessage = gson.fromJson(message.getPayload().toString(), StateData.class);
+          service.save(myMessage);
           log.info(myMessage.toString());
         } catch (Exception e) {
           log.error("something went wrong!");
