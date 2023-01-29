@@ -7,5 +7,5 @@ public interface StateCacheService {
 
   void addToCache(StateDataCache stateDataCache);
 
-  List<StateDataCache> retreiveDataByDeviceId(String deviceId);
+  List<StateDataCache> retrieveDataByDeviceId(String deviceId);
 }

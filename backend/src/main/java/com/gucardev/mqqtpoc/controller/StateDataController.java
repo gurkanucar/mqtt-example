@@ -30,7 +30,7 @@ public class StateDataController {
 
   @GetMapping("/cached-data/{clientId}")
   public List<StateDataCache> getCachedData(@PathVariable String clientId) {
-    return stateCacheService.retreiveDataByDeviceId(clientId);
+    return stateCacheService.retrieveDataByDeviceId(clientId);
   }
 
   @GetMapping("/{clientId}")

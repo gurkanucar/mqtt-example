@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StateDataCacheRepository extends CrudRepository<StateDataCache, Long> {
+public interface StateDataCacheRepository extends CrudRepository<StateDataCache, String> {
 
-  List<StateDataCache> findAllBySentFalseAndDeviceId(String deviceId);
+  List<StateDataCache> findAllByDeviceId(String deviceId);
 }

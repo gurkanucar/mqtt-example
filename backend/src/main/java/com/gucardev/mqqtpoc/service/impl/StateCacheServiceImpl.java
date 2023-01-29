@@ -23,9 +23,8 @@ public class StateCacheServiceImpl implements StateCacheService {
   }
 
   @Override
-  public List<StateDataCache> retreiveDataByDeviceId(String deviceId) {
-    var stateData = repository.findAllBySentFalseAndDeviceId(deviceId);
-    stateData.forEach(x -> x.setSent(true));
+  public List<StateDataCache> retrieveDataByDeviceId(String deviceId) {
+    var stateData = repository.findAllByDeviceId(deviceId);
     repository.deleteAll(stateData);
     return stateData;
   }

@@ -19,14 +19,14 @@ public class RedisConfig {
   private int redisPort;
 
   @Bean
-  public LettuceConnectionFactory redisStandAloneConnectionFactory() {
+  public LettuceConnectionFactory redisConnectionFactory() {
     return new LettuceConnectionFactory(new RedisStandaloneConfiguration(redisHost, redisPort));
   }
 
   @Bean
-  public RedisTemplate<?, ?> redisTemplate() {
-    RedisTemplate<byte[], byte[]> template = new RedisTemplate<>();
-    template.setConnectionFactory(redisStandAloneConnectionFactory());
+  public RedisTemplate<String, Object> redisTemplate() {
+    RedisTemplate<String, Object> template = new RedisTemplate<>();
+    template.setConnectionFactory(redisConnectionFactory());
     return template;
   }
 }

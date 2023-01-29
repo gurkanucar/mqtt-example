@@ -33,7 +33,7 @@ public class ServerSentEventServiceImp implements ServerSentEventService {
                 ServerSentEvent.<List<StateDataCache>>builder()
                     .id(String.valueOf(sequence))
                     .event("states-list-event")
-                    .data(stateCacheService.retreiveDataByDeviceId(id))
+                    .data(stateCacheService.retrieveDataByDeviceId(id))
                     .build());
   }
 
