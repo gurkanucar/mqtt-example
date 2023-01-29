@@ -50,13 +50,19 @@ function App() {
 
   return (
     <div className="App">
-      <DeviceSelectComponent
-        deviceIds={deviceIds}
-        selectDevice={(e) => setSelectedDevice(e.target.value)}
-      />
+      {!deviceSelected && (
+        <DeviceSelectComponent
+          deviceIds={deviceIds}
+          selectDevice={(e) => setSelectedDevice(e.target.value)}
+        />
+      )}
       <ButtonComponent
-        onClick={() => setdeviceSelected(true)}
-        value="View Location"
+        onClick={() => {
+          if (selectedDevice != "" && selectedDevice != undefined) {
+            setdeviceSelected(!deviceSelected);
+          }
+        }}
+        value={deviceSelected ? "Select another" : "View Location"}
       />
       {deviceSelected && initialData && (
         <Home selectedDevice={selectedDevice} initialData={initialData} />
