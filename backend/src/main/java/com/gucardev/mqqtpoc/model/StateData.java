@@ -19,10 +19,10 @@ public class StateData {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   private String deviceId;
   private String topic;
   private String message;
   private String lat;
   private String lon;
-
 }

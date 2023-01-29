@@ -9,5 +9,4 @@ public class MqqtPocApplication {
   public static void main(String[] args) {
     SpringApplication.run(MqqtPocApplication.class, args);
   }
-
 }
