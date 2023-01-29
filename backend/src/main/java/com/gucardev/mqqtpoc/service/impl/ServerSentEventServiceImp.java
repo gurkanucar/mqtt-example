@@ -37,7 +37,6 @@ public class ServerSentEventServiceImp implements ServerSentEventService {
                     .build());
   }
 
-
   public Flux<ServerSentEvent<List<StateData>>> getStateDataByDeviceId(String id) {
     return Flux.interval(Duration.ofSeconds(1))
         .publishOn(Schedulers.boundedElastic())
