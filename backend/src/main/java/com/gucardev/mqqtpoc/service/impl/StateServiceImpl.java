@@ -28,6 +28,7 @@ public class StateServiceImpl implements StateService {
   }
 
   public List<StateData> getListByDeviceId(String deviceId) {
+    stateCacheService.deleteAll(deviceId);
     return stateDataRepository.findAll().stream()
         .filter(x -> x.getDeviceId().equals(deviceId))
         .collect(Collectors.toList());

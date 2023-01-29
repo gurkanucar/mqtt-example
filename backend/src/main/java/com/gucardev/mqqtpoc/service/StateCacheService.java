@@ -7,5 +7,7 @@ public interface StateCacheService {
 
   void addToCache(StateDataCache stateDataCache);
 
+  void deleteAll(String deviceId);
+
   List<StateDataCache> retrieveDataByDeviceId(String deviceId);
 }

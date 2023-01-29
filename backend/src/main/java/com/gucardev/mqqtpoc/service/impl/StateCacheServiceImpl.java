@@ -25,7 +25,12 @@ public class StateCacheServiceImpl implements StateCacheService {
   @Override
   public List<StateDataCache> retrieveDataByDeviceId(String deviceId) {
     var stateData = repository.findAllByDeviceId(deviceId);
-    repository.deleteAll(stateData);
+    deleteAll(deviceId);
     return stateData;
+  }
+
+  @Override
+  public void deleteAll(String deviceId) {
+    repository.deleteAll(repository.findAllByDeviceId(deviceId));
   }
 }
