@@ -10,10 +10,10 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>com.gucardev</groupId>
-  <artifactId>mqqt-poc</artifactId>
+  <artifactId>mqtt-poc</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>mqqt-poc</name>
-  <description>mqqt-poc</description>
+  <name>mqtt-poc</name>
+  <description>mqtt-poc</description>
   <properties>
     <java.version>17</java.version>
   </properties>
