@@ -3,9 +3,6 @@ package com.gucardev.mqqtmobileclient
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.gucardev.mqqtmobileclient.databinding.ActivityMainBinding
 
