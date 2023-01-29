@@ -16,6 +16,7 @@ import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -33,8 +34,13 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var btnConnect: Button
     lateinit var btnSend: Button
+    lateinit var btnSetDeviceId: Button
     private lateinit var mqttClient: MqttAndroidClient
     private lateinit var locationText: TextView
+    private lateinit var incomingDataText: TextView
+    private lateinit var deviceId: String
+    private lateinit var deviceIdText: EditText
+    private var isConnected: Boolean = false
 
     private val locationPermissionManager = LocationPermissionManager(this)
     private lateinit var locationUpdater: LocationUpdater
@@ -44,19 +50,25 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         locationPermissionManager.requestLocationPermission()
 
+        deviceId = "device1"
 
         locationText = findViewById(R.id.locationText)
-
-
         btnConnect = findViewById(R.id.button)
         btnSend = findViewById(R.id.buttonSend)
+        btnSetDeviceId = findViewById(R.id.buttonSetDeviceId)
+        deviceIdText = findViewById(R.id.deviceNameText)
+        incomingDataText = findViewById(R.id.incomingData)
+
+        btnSetDeviceId.setOnClickListener {
+            deviceId = deviceIdText.text.toString()
+        }
 
         btnConnect.setOnClickListener {
             connect(this)
         }
 
         btnSend.setOnClickListener {
-            sendMessage("device1", "myTopic", "hi from app!", "0.0", "0.0")
+            sendMessage(deviceId, "myTopic", "hi from app!", "0.0", "0.0")
         }
 
         ActivityCompat.requestPermissions(
@@ -80,9 +92,9 @@ class MainActivity : AppCompatActivity() {
         // Do something with the new location
         println(location)
         locationText.text = "lat: ${location.latitude}, lon: ${location.longitude}"
-        if (mqttClient.isConnected) {
+        if (isConnected) {
             sendMessage(
-                "device1",
+                deviceId,
                 "myTopic",
                 "hi from app!",
                 location.latitude.toString(),
@@ -109,6 +121,7 @@ class MainActivity : AppCompatActivity() {
         mqttClient.setCallback(object : MqttCallback {
             override fun messageArrived(topic: String?, message: MqttMessage?) {
                 Log.i("Info", "Receive message: ${message.toString()} from topic: $topic")
+                incomingDataText.text = message.toString()
             }
 
             override fun connectionLost(cause: Throwable?) {
@@ -128,6 +141,7 @@ class MainActivity : AppCompatActivity() {
                     Log.i("Info", "Connection success")
 
                     subscribeToTopic()
+                    isConnected = true
                 }
 
                 override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
