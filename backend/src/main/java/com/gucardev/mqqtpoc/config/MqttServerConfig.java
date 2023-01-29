@@ -5,6 +5,7 @@ import com.gucardev.mqqtpoc.service.impl.MqqtMessageHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.ServiceActivator;
@@ -58,8 +59,8 @@ public class MqttServerConfig {
 
   @Bean
   @ServiceActivator(inputChannel = "mqttInputChannel")
-  public MessageHandler handler(StateService stateService) {
-    return new MqqtMessageHandler(stateService);
+  public MessageHandler handler(StateService stateService, ModelMapper modelMapper) {
+    return new MqqtMessageHandler(stateService, modelMapper);
   }
 
   @Bean

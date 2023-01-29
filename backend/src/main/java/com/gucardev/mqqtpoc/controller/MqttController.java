@@ -16,7 +16,7 @@ public class MqttController {
   @PostMapping("/sendMessage")
   public ResponseEntity<?> publish(@RequestBody StateData mqttMessage) {
     try {
-      mqtGateway.senToMqtt(mqttMessage.getMessage(), mqttMessage.getTopic());
+      mqtGateway.senToMqtt(mqttMessage.toString(), mqttMessage.getTopic());
       return ResponseEntity.ok("Success");
     } catch (Exception ex) {
       ex.printStackTrace();

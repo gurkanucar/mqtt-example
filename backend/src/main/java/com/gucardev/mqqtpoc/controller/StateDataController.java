@@ -20,6 +20,11 @@ public class StateDataController {
   private final StateService stateService;
   private final ServerSentEventService eventService;
 
+  @GetMapping("/stored-data/{clientId}")
+  public List<StateData> getStoredData(@PathVariable String clientId) {
+    return stateService.getListByDeviceId(clientId);
+  }
+
   @GetMapping("/{clientId}")
   public Flux<ServerSentEvent<List<StateData>>> streamLastMessage(@PathVariable String clientId) {
     return eventService.getByDeviceId(clientId);
