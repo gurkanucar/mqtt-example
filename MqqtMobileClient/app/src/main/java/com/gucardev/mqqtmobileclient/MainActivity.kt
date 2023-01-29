@@ -1,10 +1,29 @@
 package com.gucardev.mqqtmobileclient
 
+import android.Manifest
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
+import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
+import android.view.View
 import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
 
@@ -13,10 +32,19 @@ class MainActivity : AppCompatActivity() {
     lateinit var btnConnect: Button
     lateinit var btnSend: Button
     private lateinit var mqttClient: MqttAndroidClient
+    private lateinit var locationText: TextView
+
+    private val locationPermissionManager = LocationPermissionManager(this)
+    private lateinit var locationUpdater: LocationUpdater
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        locationPermissionManager.requestLocationPermission()
+
+
+        locationText = findViewById(R.id.locationText)
+
 
         btnConnect = findViewById(R.id.button)
         btnSend = findViewById(R.id.buttonSend)
@@ -29,37 +57,36 @@ class MainActivity : AppCompatActivity() {
             sendMessage()
         }
 
-/*
-        val client = MqttAndroidClient(this, "tcp://192.168.0.27:1883", "clientId")
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+            ),
+            0
+        )
 
-        client.connect(options, null, object : IMqttActionListener {
-            override fun onSuccess(asyncActionToken: IMqttToken) {
-                val topic = "myTopic"
-                val qos = 1
-                client.subscribe(topic, qos)
+        val locationUpdater = LocationUpdater(this) { location ->
+            handleLocationChange(location)
+        }
+        locationUpdater.start()
 
-                client.setCallback(object : MqttCallback {
-                    override fun connectionLost(cause: Throwable?) {
-                        TODO("Not yet implemented")
-                    }
 
-                    override fun messageArrived(topic: String, message: MqttMessage) {
+    }
 
-                    }
+    private fun handleLocationChange(location: Location) {
+        // Do something with the new location
+        println(location)
+        locationText.text = "lat: ${location.latitude}, lon: ${location.longitude}"
+    }
 
-                    override fun deliveryComplete(token: IMqttDeliveryToken?) {
-                        TODO("Not yet implemented")
-                    }
-
-                    // other callbacks
-                })
-            }
-
-            override fun onFailure(asyncActionToken: IMqttToken, exception: Throwable) {
-                // failed to connect
-            }
-        })*/
-
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        locationPermissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     fun connect(context: Context) {
@@ -137,4 +164,6 @@ class MainActivity : AppCompatActivity() {
             ex.printStackTrace()
         }
     }
+
+
 }
