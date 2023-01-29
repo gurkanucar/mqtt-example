@@ -11,6 +11,7 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Message
 import android.provider.Settings
 import android.util.Log
 import android.view.View
@@ -21,6 +22,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -54,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnSend.setOnClickListener {
-            sendMessage()
+            sendMessage("device1", "myTopic", "hi from app!", "0.0", "0.0")
         }
 
         ActivityCompat.requestPermissions(
@@ -78,6 +80,15 @@ class MainActivity : AppCompatActivity() {
         // Do something with the new location
         println(location)
         locationText.text = "lat: ${location.latitude}, lon: ${location.longitude}"
+        if (mqttClient.isConnected) {
+            sendMessage(
+                "device1",
+                "myTopic",
+                "hi from app!",
+                location.latitude.toString(),
+                location.longitude.toString()
+            )
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -129,9 +140,17 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun sendMessage() {
-        val topic = "myTopic"
-        val message = "{\"message\":\"Hello,MQTTfromclient!\",\"topic\":\"myTopic\"}"
+    private fun sendMessage(
+        deviceName: String,
+        topic: String,
+        message: String,
+        lat: String,
+        lon: String
+    ) {
+        val gson = Gson()
+        //val topic = "myTopic"
+        //val message = "{\"message\":\"Hello,MQTTfromclient!\",\"topic\":\"myTopic\"}"
+        val message = gson.toJson(StateData(deviceName, topic, message, lat, lon))
         val qos = 1
         val retained = false
         mqttClient.publish(topic, message.toByteArray(), qos, retained)
