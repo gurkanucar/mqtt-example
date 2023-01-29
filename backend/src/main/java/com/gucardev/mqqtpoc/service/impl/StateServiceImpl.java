@@ -33,4 +33,9 @@ public class StateServiceImpl implements StateService {
         .filter(x -> x.getDeviceId().equals(deviceId))
         .collect(Collectors.toList());
   }
+
+  @Override
+  public List<String> getDevices() {
+    return stateDataRepository.retrieveDeviceNames();
+  }
 }

@@ -8,4 +8,6 @@ public interface StateService {
   StateData save(StateData stateData);
 
   List<StateData> getListByDeviceId(String id);
+
+  List<String> getDevices();
 }

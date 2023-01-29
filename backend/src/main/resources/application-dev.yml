@@ -5,3 +5,8 @@ spring:
     redis:
       host: localhost
       port: 6379
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:database

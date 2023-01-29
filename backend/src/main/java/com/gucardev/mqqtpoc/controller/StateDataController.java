@@ -3,7 +3,6 @@ package com.gucardev.mqqtpoc.controller;
 import com.gucardev.mqqtpoc.model.StateData;
 import com.gucardev.mqqtpoc.model.StateDataCache;
 import com.gucardev.mqqtpoc.service.ServerSentEventService;
-import com.gucardev.mqqtpoc.service.StateCacheService;
 import com.gucardev.mqqtpoc.service.StateService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -19,18 +18,17 @@ import reactor.core.publisher.Flux;
 @RequiredArgsConstructor
 public class StateDataController {
 
-  private final StateCacheService stateCacheService;
   private final StateService stateService;
   private final ServerSentEventService eventService;
+
+  @GetMapping("/devices")
+  public List<String> getDevices() {
+    return stateService.getDevices();
+  }
 
   @GetMapping("/stored-data/{clientId}")
   public List<StateData> getStoredData(@PathVariable String clientId) {
     return stateService.getListByDeviceId(clientId);
-  }
-
-  @GetMapping("/cached-data/{clientId}")
-  public List<StateDataCache> getCachedData(@PathVariable String clientId) {
-    return stateCacheService.retrieveDataByDeviceId(clientId);
   }
 
   @GetMapping("/{clientId}")
