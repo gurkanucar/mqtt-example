@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import marker from "../res/marker.png";
+import marker from "../res/marker2.png";
 import {
   CircleMarker,
   MapContainer,
@@ -18,7 +18,7 @@ export const MapComponent = (props) => {
     iconUrl: marker,
     iconRetinaUrl: marker,
     popupAnchor: [-0, -0],
-    iconSize: [32, 32],
+    iconSize: [48, 48],
   });
 
   const renderPositions = (positions) => {
@@ -34,8 +34,9 @@ export const MapComponent = (props) => {
             radius={3}
           >
             <Popup>
+              <b>device:</b> {position.deviceId} <br />
               <b>lat:</b> {position.lat} <br />
-              <b>lng:</b> {position.lng} <br />
+              <b>lon:</b> {position.lon} <br />
             </Popup>
           </CircleMarker>
         ))}
@@ -54,7 +55,7 @@ export const MapComponent = (props) => {
             position={[parseFloat(location.lat), parseFloat(location.lon)]}
           >
             <Popup>
-              <span>popup</span>
+              <span>Current Location</span>
             </Popup>
           </Marker>
         </>

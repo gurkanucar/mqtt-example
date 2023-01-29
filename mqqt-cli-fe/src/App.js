@@ -2,14 +2,31 @@ import logo from "./logo.svg";
 import "./App.css";
 import { Home } from "./pages/Home";
 import { useEffect, useState } from "react";
+import { BASE_URL } from "./res/Constants";
+import DeviceSelectComponent from "./components/DeviceSelectComponent";
+import { ButtonComponent } from "./components/ButtonComponent";
 
 function App() {
   const [initialData, setInitialData] = useState();
+  const [deviceIds, setDeviceIds] = useState(["device1", "device2"]);
+  const [selectedDevice, setSelectedDevice] = useState();
+  const [deviceSelected, setdeviceSelected] = useState(false);
 
-  const url = "http://192.168.0.27:8081";
+  const fetchDeviceIds = () => {
+    fetch(`${BASE_URL}/data/devices`).then((response) => {
+      return response
+        .json()
+        .then((data) => {
+          setDeviceIds(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+  };
 
   const fetchInitialData = () => {
-    fetch(`${url}/data/stored-data/device1`).then((response) => {
+    fetch(`${BASE_URL}/data/stored-data/${selectedDevice}`).then((response) => {
       return response
         .json()
         .then((data) => {
@@ -22,12 +39,28 @@ function App() {
   };
 
   useEffect(() => {
-    fetchInitialData();
+    if (deviceSelected == true) {
+      fetchInitialData();
+    }
+  }, [deviceSelected]);
+
+  useEffect(() => {
+    fetchDeviceIds();
   }, []);
 
   return (
     <div className="App">
-      {initialData && <Home initialData={initialData} />}
+      <DeviceSelectComponent
+        deviceIds={deviceIds}
+        selectDevice={(e) => setSelectedDevice(e.target.value)}
+      />
+      <ButtonComponent
+        onClick={() => setdeviceSelected(true)}
+        value="View Location"
+      />
+      {deviceSelected && initialData && (
+        <Home selectedDevice={selectedDevice} initialData={initialData} />
+      )}
     </div>
   );
 }
