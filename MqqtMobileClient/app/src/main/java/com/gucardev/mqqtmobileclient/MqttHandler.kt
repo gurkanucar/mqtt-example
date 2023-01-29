@@ -6,7 +6,7 @@ import com.google.gson.Gson
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
 
-class MqttHandler(context: Context, clientId: String) {
+class MqttHandler(context: Context, private var clientId: String) {
     var isConnected: Boolean = false
 
     private var mqttClient: MqttAndroidClient? = null
@@ -68,15 +68,17 @@ class MqttHandler(context: Context, clientId: String) {
     }
 
     private fun subscribeToTopic() {
-        val subscriptionTopic = "myTopic"
         try {
-            mqttClient?.subscribe(subscriptionTopic, 0, null, object : IMqttActionListener {
-                override fun onSuccess(asyncActionToken: IMqttToken) {
-                    Log.w("Mqtt", "Subscribed!")
+            //must be same size topics and qos
+            val topics = arrayOf("myTopic", this.clientId)
+            val qos = intArrayOf(1, 1)
+            mqttClient?.subscribe(topics, qos, null, object : IMqttActionListener {
+                override fun onSuccess(asyncActionToken: IMqttToken?) {
+                    Log.i("Info", "Subscribed to multiple topics successfully")
                 }
 
-                override fun onFailure(asyncActionToken: IMqttToken, exception: Throwable) {
-                    Log.w("Mqtt", "Subscribed fail!")
+                override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
+                    Log.i("Info", "Failed to subscribe to multiple topics $exception")
                 }
             })
         } catch (ex: MqttException) {
