@@ -17,7 +17,7 @@
 
 ### How to run
 
-#### ! Note that project under the construction. Not at all dockerized! 
+#### Pay attention to the project under construction. Not completely dockerized!
 #### You have to install Mosquitto MQTT application, I will add it to docker asap.
 
 #### clone the project: https://github.com/gurkanucar/mqtt-example
