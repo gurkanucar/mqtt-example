@@ -35,7 +35,18 @@ services:
     networks:
       - shared-net
 
-
+  fe:
+    build:
+      context: ./mqtt-cli-fe/
+      dockerfile: Dockerfile
+    volumes:
+      - './mqtt-cli-fe/:/app'
+    ports:
+      - 3000:3000
+    environment:
+      - REACT_APP_ENV=development
+    networks:
+      - shared-net
 
 networks:
   shared-net:
