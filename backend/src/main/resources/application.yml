@@ -12,4 +12,4 @@ spring:
     url: jdbc:h2:mem:database
 
 mqqt-config:
-  server-uri: tcp://localhost:1883
+  server-uri: tcp://mosquitto:1883

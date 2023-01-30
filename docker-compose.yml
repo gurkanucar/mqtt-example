@@ -14,7 +14,7 @@ services:
       context: ./backend/
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8081:8081"
     environment:
       SPRING_REDIS_HOST: redisdb
     depends_on:
@@ -22,6 +22,24 @@ services:
     networks:
       - shared-net
 
+  mosquitto:
+    image: eclipse-mosquitto
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto/config/passFile:/mosquitto/config/passFile
+      - ./mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./mosquitto/log:/mosquitto/log
+    networks:
+      - shared-net
+
+
+
 networks:
   shared-net:
     driver: bridge
+
+
+
+
