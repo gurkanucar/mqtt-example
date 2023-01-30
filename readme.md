@@ -15,7 +15,7 @@
 - Redis
 
 
-### How to run
+### How to run ~project is completely dockerized
 
 #### backend will work on port 8081 in docker and 8080 in localhost!
 
@@ -45,6 +45,11 @@
   docker-compose up --force-recreate
 ```
 
+#### You can access the frontend from http://localhost:3000
+
+#### ! Don't forget to update the backend address in the mobile application.
+
+
 ## Example Video
 
 [https://youtu.be/WXTXZTauM7A](https://youtu.be/WXTXZTauM7A)
@@ -53,4 +58,6 @@
 ## Example Images
 
 ![image](./images/1.png)
+
+![image](./images/2.png)
 
