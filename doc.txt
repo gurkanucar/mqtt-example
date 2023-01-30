@@ -40,6 +40,7 @@ docker-compose up --force-recreate
 
 redis-cli flushall
 
+docker-compose up -d --no-deps --build <service_name>
 
 find . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
 
