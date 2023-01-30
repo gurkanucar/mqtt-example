@@ -30,7 +30,8 @@ services:
     volumes:
       - ./mosquitto/config/passFile:/mosquitto/config/passFile
       - ./mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
-      - ./mosquitto/log:/mosquitto/log
+      #- ./mosquitto/log:/mosquitto/log
+      - ~/mosquitto/log:/mosquitto/log
     networks:
       - shared-net
 
