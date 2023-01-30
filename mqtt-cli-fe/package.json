@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
+    "env-cmd": "^10.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.0.2",
