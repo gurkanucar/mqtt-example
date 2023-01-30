@@ -17,8 +17,7 @@
 
 ### How to run
 
-#### Pay attention to the project under construction. Not completely dockerized!
-#### You have to install Mosquitto MQTT application, I will add it to docker asap.
+#### backend will work on port 8081 in docker and 8080 in localhost!
 
 #### clone the project: https://github.com/gurkanucar/mqtt-example
 
@@ -26,16 +25,17 @@
   git clone https://github.com/gurkanucar/mqtt-example
 ```
 
-#### create jar
+#### Please firstly run this maven command to get jar file:
 
 ```bash
   cd backend
-  mvn clean install -DskipTests
+  mvn clean package -DskipTests
 ```
 
 #### build docker-compose
 
 ```bash
+  cd ..
   docker-compose build --no-cache
 ```
 
