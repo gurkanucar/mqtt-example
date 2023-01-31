@@ -45,3 +45,5 @@ docker-compose up -d --no-deps --build <service_name>
 find . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
 
 
+docker logs --tail=50 <service_name>
+
