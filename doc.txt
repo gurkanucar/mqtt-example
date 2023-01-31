@@ -47,3 +47,4 @@ find . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
 
 docker logs --tail=50 <service_name>
 
+service docker start
