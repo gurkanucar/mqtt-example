@@ -37,14 +37,73 @@ mvn clean package  -DskipTests
 docker-compose build --no-cache
 docker-compose up --force-recreate
 
+sudo docker-compose up <service_name>
+
 
 redis-cli flushall
 
 docker-compose up -d --no-deps --build <service_name>
+
+docker rmi $(docker images -q)
 
 find . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
 
 
 docker logs --tail=50 <service_name>
 
-service docker start
+sudo service docker start
+
+npm install -D react-scripts
+
+
+ssh-keygen -t ed25519 -C "your_email@example.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
+git config remote.origin.url "https://github.com/gurkanucar/mqtt-example.git"
+git remote set-url origin git@github.com:gurkanucar/mqtt-example.git
+
+cat ~/.ssh/id_ed25519.pub | pbcopy
+
+aws installitions:
+
+sudo amazon-linux-extras install epel -y
+sudo yum install xclip -y
+
+sudo yum install git -y
+
+sudo amazon-linux-extras install docker
+sudo service docker start
+sudo systemctl start docker
+sudo service docker status
+sudo groupadd docker
+sudo usermod -a -G docker ec2-user
+newgrp docker
+docker --version
+
+sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+
+sudo chmod +x /usr/local/bin/docker-compose
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+docker-compose --version
+
+sudo wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
+sudo sed -i s/\$releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo
+sudo yum install -y apache-maven
+mvn --version
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+. ~/.nvm/nvm.sh
+nvm install 16.15.1
+
+
+
+
+
+
+
+
+
+
+
+
