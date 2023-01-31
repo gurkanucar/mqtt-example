@@ -44,7 +44,7 @@ services:
     ports:
       - 3000:3000
     environment:
-      - REACT_APP_ENV=development
+      - API_BASE_URL=$MACHINE_HOST:8081
     networks:
       - shared-net
 
