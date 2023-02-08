@@ -12,7 +12,15 @@ RUN npm install
 
 # Copy the rest of the app files to the container
 COPY . .
-EXPOSE 3000
+
+# Install react-scripts globally
+RUN npm install -g react-scripts
+
 # Build the React app
 RUN npm run build
 
+# Expose port 3000 for incoming traffic to the container
+EXPOSE 3000
+
+# Start the React app
+CMD [ "npm", "run", "start" ]
