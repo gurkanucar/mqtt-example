@@ -61,7 +61,7 @@
 
 ## Example Images
 
-![image](./images/2.png)
+![image](./images/docker.png)
 
 ![image](./images/1.png)
 
