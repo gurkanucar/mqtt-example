@@ -46,6 +46,8 @@ docker-compose up -d --no-deps --build <service_name>
 
 docker rmi $(docker images -q)
 
+docker stop $(docker ps -qa)
+
 find . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
 
 

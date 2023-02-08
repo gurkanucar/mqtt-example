@@ -44,7 +44,7 @@ services:
     ports:
       - 3000:3000
     environment:
-      - API_BASE_URL=$MACHINE_HOST:8081
+      - API_BASE_URL=http://app:8081
     networks:
       - shared-net
 
