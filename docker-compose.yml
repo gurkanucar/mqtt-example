@@ -44,9 +44,22 @@ services:
     ports:
       - 3000:3000
     environment:
-      - REACT_APP_API_BASE_URL=http://$(docker-machine ip):8081
+      - REACT_APP_API_BASE_URL=http://EC2_IP=${EC2_IP:-localhost}:8081
     networks:
       - shared-net
+  nginx:
+    image: nginx:alpine
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - fe
+      - app
+    networks:
+      - shared-net
+
+
 
 networks:
   shared-net:
