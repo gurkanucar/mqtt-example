@@ -1,4 +1,3 @@
-
 # Mosquitto MQTT - Spring Boot & Android & React JS Location Tracking App
 
 #### The Project consists of 3 parts:
@@ -32,18 +31,23 @@
   mvn clean package -DskipTests
 ```
 
-#### build docker-compose
-
 ```bash
   cd ..
-  docker-compose build --no-cache
 ```
 
-#### run docker-compose
+
+#### if you want to run it in local
 
 ```bash
-  docker-compose up --force-recreate
+  docker-compose up --build --force-recreate -d
 ```
+
+#### if you want to run it in server give your ip address as arg for frontend
+
+```bash
+  EC2_IP=<MACHINE_IP> docker-compose up --build --force-recreate -d
+```
+
 
 #### You can access the frontend from http://localhost:3000
 
@@ -57,7 +61,10 @@
 
 ## Example Images
 
-![image](./images/1.png)
-
 ![image](./images/2.png)
 
+![image](./images/1.png)
+
+![image](./images/device1.png)
+
+![image](./images/device2.png)
