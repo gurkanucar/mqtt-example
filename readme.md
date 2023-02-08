@@ -10,7 +10,7 @@
 
 - Spring Boot
 - Server Sent Events
-- Mosquitto MQQT Server
+- Mosquitto MQTT Server
 - Redis
 
 
@@ -36,13 +36,13 @@
 ```
 
 
-#### if you want to run it in local
+#### if you want to run it on local
 
 ```bash
   docker-compose up --build --force-recreate -d
 ```
 
-#### if you want to run it in server give your ip address as arg for frontend
+#### if you want to run it on server give your ip address as arg for frontend
 
 ```bash
   EC2_IP=<MACHINE_IP> docker-compose up --build --force-recreate -d
