@@ -13,6 +13,7 @@ function App() {
   const [deviceSelected, setdeviceSelected] = useState(false);
 
   const fetchDeviceIds = () => {
+    console.log("Base Url:", BASE_URL);
     fetch(`${BASE_URL}/data/devices`).then((response) => {
       return response
         .json()
@@ -26,6 +27,7 @@ function App() {
   };
 
   const fetchInitialData = () => {
+    console.log("Base Url:", BASE_URL);
     fetch(`${BASE_URL}/data/stored-data/${selectedDevice}`).then((response) => {
       return response
         .json()
